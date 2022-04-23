@@ -53,8 +53,8 @@ class ServiceTheatreThread extends Thread {
             int action = Integer.parseInt(received);
 
             if (action == 0) {
-                int remaining = this.reservations.getNumberOfTickets();
-                outToClient.writeBytes(remaining + "\n");
+                int booked = this.reservations.getNumberOfTickets();
+                outToClient.writeBytes(booked + "\n");
             } else {
                 boolean success = this.reservations.reserveTicket();
                 outToClient.writeBytes(success + "\n");
@@ -70,12 +70,14 @@ class ServiceTheatreThread extends Thread {
 
 class Reservations {
     int numberOfTickets;
+    int totalTickets;
 
     public Reservations(int numberOfTickets) {
         if (numberOfTickets < 0) {
             throw new InvalidParameterException("Number of tickets must be > 0");
         }
         this.numberOfTickets = numberOfTickets;
+        this.totalTickets = numberOfTickets;
     }
 
     synchronized public int getNumberOfTickets() {
@@ -84,7 +86,14 @@ class Reservations {
         } catch (Exception e) {
             System.out.println("Interrupted");
         }
-        return numberOfTickets;
+        if (this.numberOfTickets == 0) {
+            return 0;
+        }
+        int booked =  this.totalTickets - this.numberOfTickets;
+        if (booked == 0) {
+            booked--;
+        }
+        return booked;
     }
 
     synchronized public boolean reserveTicket() {

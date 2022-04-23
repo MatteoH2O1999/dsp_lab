@@ -35,8 +35,15 @@ public class TheatreClient {
         outToServer.writeBytes(action + "\n");
 
         if (action == 0) {
-            int remaining = Integer.parseInt(inFromServer.readLine());
-            System.out.printf("There are %d tickets remaining.", remaining);
+            int booked = Integer.parseInt(inFromServer.readLine());
+            if (booked == 0){
+                System.out.println("There are no more available seats.");
+            } else {
+                if (booked == -1) {
+                    booked++;
+                }
+                System.out.printf("There are %d seats already reserved.", booked);
+            }
         } else {
             boolean success = Boolean.parseBoolean(inFromServer.readLine());
             if (success) {
