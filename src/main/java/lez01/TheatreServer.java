@@ -81,11 +81,6 @@ class Reservations {
     }
 
     synchronized public int getNumberOfTickets() {
-        try {
-            Thread.sleep(30000);
-        } catch (Exception e) {
-            System.out.println("Interrupted");
-        }
         if (this.numberOfTickets == 0) {
             return 0;
         }
@@ -97,11 +92,6 @@ class Reservations {
     }
 
     synchronized public boolean reserveTicket() {
-        try {
-            Thread.sleep(30000);
-        } catch (Exception e) {
-            System.out.println("Interrupted");
-        }
         if (numberOfTickets == 0) {
             return false;
         }
