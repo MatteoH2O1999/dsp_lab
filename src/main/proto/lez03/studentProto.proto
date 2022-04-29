@@ -1,0 +1,27 @@
+package lez03;
+
+message StudentMessage {
+
+  message PersonalDetails {
+    required string name = 1;
+    required string surname = 2;
+    required string residence = 3;
+    required int32 yearOfBirth = 4;
+  }
+
+  message Exam {
+
+    message DateOfVerbalization {
+      required int32 day = 1;
+      required int32 month = 2;
+      required int32 year = 3;
+    }
+
+    required string examName = 1;
+    required int32 mark = 2;
+    required DateOfVerbalization dateOfVerbalization = 3;
+  }
+
+  required PersonalDetails personalDetails = 1;
+  repeated Exam exams = 2;
+}

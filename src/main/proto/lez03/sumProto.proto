@@ -1,0 +1,16 @@
+package lez03.SumProtocol;
+
+service SumService {
+  rpc SimpleSum (IntegerCouple) returns (IntegerSum);
+  rpc RepeatedSum (IntegerCouple) returns (stream IntegerSum);
+  rpc StreamSum (stream IntegerCouple) returns (stream IntegerSum);
+}
+
+message IntegerCouple {
+  required int32 fistNumber = 1;
+  required int32 secondNumber = 2;
+}
+
+message IntegerSum {
+  required int32 sum = 1;
+}
